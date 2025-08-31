@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] LaserPool laserPool;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveSpeed;
     private Vector2 _moveDirection;
 
     public InputActionReference move;
     public InputActionReference shoot;
+
+    private float lastTimeFired = 0;
 
     private void Update()
     {
@@ -34,6 +39,11 @@ public class PlayerScript : MonoBehaviour
 
     private void Shoot(InputAction.CallbackContext obj)
     {
-        Debug.Log("Shot");
+        if (Time.time - lastTimeFired > 1f) //Cooldown
+        {
+            laserPool.GetLaser(this.gameObject);
+            lastTimeFired = Time.time;
+        }
     }
+
 }

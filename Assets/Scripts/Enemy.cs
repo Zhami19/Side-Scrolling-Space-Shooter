@@ -59,4 +59,13 @@ public class Enemy : MonoBehaviour
     {
         enemyPool.ReturnEnemy(this.gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
+        }
+    }
 }

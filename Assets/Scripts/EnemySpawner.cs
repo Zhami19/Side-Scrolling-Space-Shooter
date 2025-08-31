@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        enemyPool = EnemyPool.FindAnyObjectByType<EnemyPool>();
+        //enemyPool = EnemyPool.FindAnyObjectByType<EnemyPool>();
         StartCoroutine(SpawnEnemies());
     }
 
@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 4f));
+            yield return new WaitForSeconds(Random.Range(.5f, 3f));
             enemyPool.GetEnemy();
         }
     }

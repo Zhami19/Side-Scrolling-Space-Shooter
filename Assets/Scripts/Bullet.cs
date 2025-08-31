@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     private BulletPool bulletPool;
 
     private GameObject target;
-    private float speed = 1f;
+    [SerializeField] private float speed = 1f;
     Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +22,15 @@ public class Bullet : MonoBehaviour
     private void OnBecameInvisible()
     {
         bulletPool.ReturnBullet(this.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.SetActive(false); 
+            this.gameObject.SetActive(false);
+        }
     }
 
 }
