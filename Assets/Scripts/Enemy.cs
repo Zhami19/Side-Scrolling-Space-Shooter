@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public class Enemy : MonoBehaviour
@@ -11,11 +13,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] float sinCenterY;
 
     [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] private float waitTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sinCenterY = transform.position.y;
+        StartCoroutine(ShootBullet());
     }
 
     // Update is called once per frame
@@ -33,5 +37,14 @@ public class Enemy : MonoBehaviour
         _position.x -= moveSpeed * Time.deltaTime;
         transform.Rotate(0, 5f, 0);
         transform.position = _position;
+    }
+
+    private IEnumerator ShootBullet()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(waitTime);
+            Instantiate(obstaclePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        }
     }
 }
