@@ -5,9 +5,12 @@ using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 4f;
-    [SerializeField] private float _frequency = 6f;
-    [SerializeField] private float _distance = .75f;
+    private EnemyPool enemyPool;
+    private BulletPool bulletPool;
+
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float _frequency;
+    [SerializeField] private float _distance;
 
     [SerializeField] Vector3 _position;
     [SerializeField] float sinCenterY;
@@ -18,7 +21,11 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        bulletPool = BulletPool.FindAnyObjectByType<BulletPool>();
+        enemyPool = EnemyPool.FindAnyObjectByType<EnemyPool>();
+
         sinCenterY = transform.position.y;
+
         StartCoroutine(ShootBullet());
     }
 
@@ -44,7 +51,12 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            Instantiate(obstaclePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+            bulletPool.GetBullet(gameObject);
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        enemyPool.ReturnEnemy(this.gameObject);
     }
 }
