@@ -4,7 +4,7 @@ using UnityEngine;
 public class LaserPool : MonoBehaviour
 {
     [SerializeField] private GameObject laserPrefab;
-    private int poolSize = 50;
+    [SerializeField] private int poolSize = 30;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
 
@@ -23,6 +23,9 @@ public class LaserPool : MonoBehaviour
         GameObject laser = pool.Dequeue();
         laser.SetActive(true);
         laser.transform.position = player.transform.position;
+
+        laser.GetComponent<Laser>().InitializeLaser();
+
         return laser;
     }
 

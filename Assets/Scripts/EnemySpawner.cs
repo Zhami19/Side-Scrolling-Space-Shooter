@@ -5,10 +5,10 @@ using UnityEngine.UIElements;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyPool enemyPool;
+    [SerializeField] private Vector2 timeRange;
 
     private void Start()
     {
-        //enemyPool = EnemyPool.FindAnyObjectByType<EnemyPool>();
         StartCoroutine(SpawnEnemies());
     }
 
@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(.5f, 2.5f));
+            yield return new WaitForSeconds(Random.Range(timeRange.x, timeRange.y));
             enemyPool.GetEnemy();
         }
     }

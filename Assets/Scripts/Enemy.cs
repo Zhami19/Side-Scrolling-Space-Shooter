@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
+    private UI ui;
+    private PlayerControl playerControl;
     private EnemyPool enemyPool;
     private BulletPool bulletPool;
 
@@ -21,11 +23,18 @@ public class Enemy : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
+        ui = UI.FindFirstObjectByType<UI>();
+        playerControl = PlayerControl.FindAnyObjectByType<PlayerControl>();
         bulletPool = BulletPool.FindAnyObjectByType<BulletPool>();
         enemyPool = EnemyPool.FindAnyObjectByType<EnemyPool>();
 
+        playerControl.OnDeath.AddListener(ui.YouLose);
+    }
+
+    public void InitializeEnemy()
+    {
         sinCenterY = transform.position.y;
 
         StartCoroutine(ShootBullet());
@@ -44,7 +53,7 @@ public class Enemy : MonoBehaviour
         _position.y = sinCenterY + _sin;
 
         _position.x -= moveSpeed * Time.deltaTime;
-        transform.Rotate(0, 5f, 0);
+        transform.Rotate(0, .5f, 0);
         transform.position = _position;
     }
 
@@ -67,7 +76,8 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.SetActive(false);
-            this.gameObject.SetActive(false);
+            playerControl.OnDeath.Invoke();
+            enemyPool.ReturnEnemy(this.gameObject);
         }
     }
 }

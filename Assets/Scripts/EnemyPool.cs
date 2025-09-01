@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyPool : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
-    private int poolSize = 20;
+    [SerializeField] private int poolSize = 30;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
 
@@ -23,6 +23,9 @@ public class EnemyPool : MonoBehaviour
         GameObject enemy = pool.Dequeue();
         enemy.SetActive(true);
         enemy.transform.position = new Vector2(10, Random.Range(-4f, 4));
+
+        enemy.GetComponent<Enemy>().InitializeEnemy();
+
         return enemy;
     }
 

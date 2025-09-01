@@ -13,14 +13,17 @@ public class Laser : MonoBehaviour
     public UnityEvent OnKill;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         ui = UI.FindFirstObjectByType<UI>();
         laserPool = LaserPool.FindAnyObjectByType<LaserPool>();
         player = PlayerControl.FindAnyObjectByType<PlayerControl>();
 
         OnKill.AddListener(ui.UpdateKillCount);
+    }
 
+    public void InitializeLaser()
+    {
         transform.position = player.transform.position;
     }
 

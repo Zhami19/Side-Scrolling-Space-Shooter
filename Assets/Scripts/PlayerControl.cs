@@ -17,6 +17,13 @@ public class PlayerControl : MonoBehaviour
 
     private float lastTimeFired = 0;
 
+    public UnityEvent OnDeath;
+
+    private void Start()
+    {
+        transform.position = new Vector2(0, 0);
+    }
+
     private void Update()
     {
         _moveDirection = move.action.ReadValue<Vector2>();
