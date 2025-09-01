@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Events;
 
 
 public class Enemy : MonoBehaviour
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameObject obstaclePrefab;
     [SerializeField] private float waitTime;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

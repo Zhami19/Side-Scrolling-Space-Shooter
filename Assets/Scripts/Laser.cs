@@ -1,19 +1,25 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Laser : MonoBehaviour
 {
+    private UI ui;
     private LaserPool laserPool;
     private PlayerControl player;
 
     [SerializeField] private float _speed = 3f;
 
+    public UnityEvent OnKill;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        ui = UI.FindFirstObjectByType<UI>();
         laserPool = LaserPool.FindAnyObjectByType<LaserPool>();
         player = PlayerControl.FindAnyObjectByType<PlayerControl>();
+
+        OnKill.AddListener(ui.UpdateKillCount);
 
         transform.position = player.transform.position;
     }
@@ -30,6 +36,7 @@ public class Laser : MonoBehaviour
             gameObject.SetActive(false);
             collision.gameObject.SetActive(false);
             laserPool.ReturnLaser(this.gameObject);
+            OnKill.Invoke();
         }
     }
 

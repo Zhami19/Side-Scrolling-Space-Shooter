@@ -20,6 +20,7 @@ public class PlayerControl : MonoBehaviour
     private void Update()
     {
         _moveDirection = move.action.ReadValue<Vector2>();
+        Borders();
     }
 
     private void FixedUpdate()
@@ -44,6 +45,23 @@ public class PlayerControl : MonoBehaviour
             laserPool.GetLaser(this.gameObject);
             lastTimeFired = Time.time;
         }
+    }
+
+    private void Borders()
+    {
+        Vector3 pos = transform.position;
+
+        if (pos.y >= 5.7f)
+        {
+            pos.y = -5.7f;
+        }
+        else if (pos.y <= -5.7f)
+        {
+            pos.y = 5.7f;
+        }
+
+        pos.x = Mathf.Clamp(pos.x, -10f, 10f);
+        transform.position = pos;
     }
 
 }

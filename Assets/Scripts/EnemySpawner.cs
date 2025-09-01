@@ -12,11 +12,12 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnEnemies());
     }
 
+
     private IEnumerator SpawnEnemies()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(.5f, 3f));
+            yield return new WaitForSeconds(Random.Range(.5f, 2.5f));
             enemyPool.GetEnemy();
         }
     }
