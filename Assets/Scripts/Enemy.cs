@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
         bulletPool = BulletPool.FindAnyObjectByType<BulletPool>();
         enemyPool = EnemyPool.FindAnyObjectByType<EnemyPool>();
 
-        playerControl.OnDeath.AddListener(ui.YouLose);
+        //playerControl.OnDeath.AddListener(ui.YouLose);
     }
 
     public void InitializeEnemy()

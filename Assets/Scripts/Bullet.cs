@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         playerControl = target.GetComponent<PlayerControl>();
         bulletPool = BulletPool.FindAnyObjectByType<BulletPool>();
 
-        playerControl.OnDeath.AddListener(ui.YouLose);
+        //playerControl.OnDeath.AddListener(ui.YouLose);
     }
 
     public void InitializeBullet()

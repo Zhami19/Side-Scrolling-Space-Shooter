@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 
 public class UI : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UI : MonoBehaviour
     [SerializeField] TMP_Text counter;
 
     private int killCount = 0;
+
+    public UnityEvent OnWin;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +40,7 @@ public class UI : MonoBehaviour
     {
         Time.timeScale = 0f;
         youWin.SetActive(true);
+        OnWin.Invoke();
     }
 
     public void YouLose()

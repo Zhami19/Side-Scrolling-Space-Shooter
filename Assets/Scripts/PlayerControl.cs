@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
     private float lastTimeFired = 0;
 
     public UnityEvent OnDeath;
+    public UnityEvent OnShoot;
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (Time.time - lastTimeFired > 1f) //Cooldown
         {
+            OnShoot.Invoke();
             laserPool.GetLaser(this.gameObject);
             lastTimeFired = Time.time;
         }
@@ -67,7 +69,7 @@ public class PlayerControl : MonoBehaviour
             pos.y = 5.7f;
         }
 
-        pos.x = Mathf.Clamp(pos.x, -10f, 10f);
+        pos.x = Mathf.Clamp(pos.x, -8f, 8f);
         transform.position = pos;
     }
 

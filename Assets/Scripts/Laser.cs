@@ -7,6 +7,7 @@ public class Laser : MonoBehaviour
     private UI ui;
     private LaserPool laserPool;
     private PlayerControl player;
+    private AudioManager audioManager;
 
     [SerializeField] private float _speed = 3f;
 
@@ -18,8 +19,10 @@ public class Laser : MonoBehaviour
         ui = UI.FindFirstObjectByType<UI>();
         laserPool = LaserPool.FindAnyObjectByType<LaserPool>();
         player = PlayerControl.FindAnyObjectByType<PlayerControl>();
+        audioManager = AudioManager.FindAnyObjectByType<AudioManager>();
 
         OnKill.AddListener(ui.UpdateKillCount);
+        OnKill.AddListener(audioManager.DestroyingSound);
     }
 
     public void InitializeLaser()
